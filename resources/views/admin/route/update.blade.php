@@ -8,7 +8,7 @@
 
         {{ method_field('PUT') }}
         
-        @include($viewPath . '_form', ['route' => $route])
+        @include('_form', ['route' => $route])
 
     </form>
 

@@ -10,6 +10,8 @@ use App\Models\Route;
 
 class RouteController extends Controller
 {
+    protected $viewPath = 'admin/route';
+
     protected $defaultValidations = [
         'name' => 'required',
         'url' => 'required'
@@ -23,7 +25,7 @@ class RouteController extends Controller
     public function create(Api $api)
     {
         $route = new Route();
-        return $this->getView('create', compact('route'));
+        return view('create', compact('route'));
     }
 
     /**
@@ -51,7 +53,7 @@ class RouteController extends Controller
     {
         $this->validateRoute($api, $route);
 
-        return $this->getView('view', compact('route'));
+        return view('view', compact('route'));
     }
 
     /**
@@ -64,7 +66,7 @@ class RouteController extends Controller
     {
         $this->validateRoute($api, $route);
 
-        return $this->getView('update', compact('route'));
+        return view('update', compact('route'));
     }
 
     /**

@@ -9,6 +9,8 @@ use App\Models\Api;
 
 class ApiController extends Controller
 {
+    protected $viewPath = 'admin/api';
+    
     protected $defaultValidations = [
         'name' => 'required'
     ];
@@ -20,7 +22,7 @@ class ApiController extends Controller
     public function index()
     {
         $apis = auth()->user()->apis;
-        return $this->getView('index', compact('apis'));
+        return view('index', compact('apis'));
     } 
 
     /**
@@ -31,7 +33,7 @@ class ApiController extends Controller
     public function create()
     {
         $api = new Api();
-        return $this->getView('create', compact('api'));
+        return view('create', compact('api'));
     }
 
     /**
@@ -59,7 +61,7 @@ class ApiController extends Controller
     {
         $api->load('routes');
 
-        return $this->getView('view', compact('api'));
+        return view('view', compact('api'));
     }
 
     /**
@@ -70,7 +72,7 @@ class ApiController extends Controller
      */
     public function edit(Api $api)
     {
-        return $this->getView('update', compact('api'));
+        return view('update', compact('api'));
     }
 
     /**
