@@ -11,28 +11,28 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $adminController = false;
     protected $viewPath = '';
 
     public function __construct() {
-        if($this->adminController) {
-            // Get Controller Class Name
-            $class = get_class($this);
+        $this->registerViewPath();
+    }
 
-            $classNameWithNamespaceRemoved = substr($class, strlen('App\Http\Controllers\\'));
+    private function registerViewPath() {
+        $class = get_class($this);
 
-            $classNameWithControllerSuffixRemoved = substr($classNameWithNamespaceRemoved, 0, strpos($classNameWithNamespaceRemoved, 'Controller'));
+        $classNameWithNamespaceRemoved = substr($class, strlen('App\Http\Controllers\\'));
 
-            $folderNames = explode('\\', $classNameWithControllerSuffixRemoved);
+        $classNameWithControllerSuffixRemoved = substr($classNameWithNamespaceRemoved, 0, strpos($classNameWithNamespaceRemoved, 'Controller'));
 
-            $viewPath = '';
+        $folderNames = explode('\\', $classNameWithControllerSuffixRemoved);
 
-            foreach ($folderNames as $folder) {
-                $viewPath .= camel_case($folder) . '.';
-            }
+        $viewPath = '';
 
-            $this->viewPath = $viewPath;
+        foreach ($folderNames as $folder) {
+            $viewPath .= camel_case($folder) . '.';
         }
+
+        $this->viewPath = $viewPath;
     }
 
     protected function getView($viewName, $args) {

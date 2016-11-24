@@ -9,8 +9,6 @@ use App\Models\Api;
 
 class ApiController extends Controller
 {
-    protected $adminController = true;
-
     protected $defaultValidations = [
         'name' => 'required'
     ];

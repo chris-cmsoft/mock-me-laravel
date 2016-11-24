@@ -10,8 +10,6 @@ use App\Models\Route;
 
 class RouteController extends Controller
 {
-    protected $adminController = true;
-
     protected $defaultValidations = [
         'name' => 'required',
         'url' => 'required'
