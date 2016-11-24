@@ -57,6 +57,10 @@ class RouteServiceProvider extends ServiceProvider
         ], function ($router) {
             require base_path('routes/web.php');
         });
+
+        Route::bind('api', function ($value) {
+            return auth()->user()->apis()->where('key', $value)->first();
+        });
     }
 
     /**
