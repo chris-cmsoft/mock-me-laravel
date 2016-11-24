@@ -6,7 +6,7 @@
 
     <form method="POST">
         
-        @include('admin.route._form', ['route' => $route])
+        @include($viewPath . '_form', ['route' => $route])
 
     </form>
 

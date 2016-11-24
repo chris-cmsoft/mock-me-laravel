@@ -6,7 +6,7 @@
 
     <form method="POST">
 
-        @include('admin.api._form', ['api' => $api])
+        @include($viewPath . '_form', ['api' => $api])
 
     </form>
 

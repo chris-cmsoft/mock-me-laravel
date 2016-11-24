@@ -9,6 +9,7 @@ use App\Models\Api;
 
 class ApiController extends Controller
 {
+    protected $adminController = true;
 
     protected $defaultValidations = [
         'name' => 'required'
@@ -101,17 +102,5 @@ class ApiController extends Controller
         $api->delete();
 
         return redirect()->route('api-index');
-    }
-
-    /**
-     * Get the view relevant to controller view path
-     * 
-     * @param  string $view
-     * @param  array $args
-     * @return \Illuminate\Http\Response
-     */
-    private function getView($view, $args) 
-    {
-        return view('admin.api.' . $view, $args);
     }
 }

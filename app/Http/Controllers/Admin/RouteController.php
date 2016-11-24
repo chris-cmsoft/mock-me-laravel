@@ -10,6 +10,8 @@ use App\Models\Route;
 
 class RouteController extends Controller
 {
+    protected $adminController = true;
+
     protected $defaultValidations = [
         'name' => 'required',
         'url' => 'required'
@@ -98,18 +100,6 @@ class RouteController extends Controller
         $route->delete();
 
         return redirect()->route('api-view', compact('api'));
-    }
-
-    /**
-     * Get the view relevant to controller view path
-     * 
-     * @param  string $view
-     * @param  array $args
-     * @return \Illuminate\Http\Response
-     */
-    private function getView($view, $args) 
-    {
-        return view('admin.route.' . $view, $args);
     }
 
     /**
