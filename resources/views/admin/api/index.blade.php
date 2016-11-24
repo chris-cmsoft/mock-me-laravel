@@ -23,6 +23,7 @@
                         <form class="pull-right" action="{{ route('api-delete', ['api' => $api]) }}" method="POST">
                             {{ method_field('DELETE') }}
                             {{ csrf_field() }}
+                            <a href="{{ route('api-view', ['api' => $api]) }}" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open"></i></a>
                             <a href="{{ route('api-update', ['api' => $api]) }}" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                             <a data-purpose="delete" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-trash"></i></a>
                         </form>

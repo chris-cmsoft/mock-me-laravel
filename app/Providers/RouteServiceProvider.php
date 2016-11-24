@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route as RouteFacade;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+
+use App\Models\Api;
+use App\Models\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -51,16 +54,16 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::group([
+        RouteFacade::group([
             'middleware' => 'web',
             'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/web.php');
         });
 
-        Route::bind('api', function ($value) {
-            return auth()->user()->apis()->where('key', $value)->first();
-        });
+        RouteFacade::model('api', Api::class);
+
+        RouteFacade::model('route', Route::class);
     }
 
     /**
@@ -72,7 +75,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::group([
+        RouteFacade::group([
             'middleware' => 'api',
             'namespace' => $this->namespace,
             'prefix' => 'api',

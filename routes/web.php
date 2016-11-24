@@ -31,6 +31,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         Route::put('/{api}/update', 'ApiController@update');
         Route::delete('/{api}', 'ApiController@destroy')->name('api-delete');
 
+        Route::group(['prefix' => '{api}/route'], function() {
+
+            Route::get('/create', "RouteController@create")->name('route-create');
+            Route::post('/create', "RouteController@store");
+            Route::get('/{route}', "RouteController@show")->name('route-view');
+            Route::get('/{route}/update', "RouteController@edit")->name('route-update');
+            Route::put('/{route}/update', "RouteController@update");
+            Route::delete('/{route}', "RouteController@destroy")->name('route-delete');
+
+        });
+
     });
 
 });

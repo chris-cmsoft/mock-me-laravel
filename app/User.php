@@ -28,7 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function apis() {
+    public function apis() 
+    {
         return $this->hasMany(Api::class);
     }
 }

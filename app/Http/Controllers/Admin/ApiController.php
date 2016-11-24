@@ -10,7 +10,9 @@ use App\Models\Api;
 class ApiController extends Controller
 {
 
-    protected $defaultValidations = ['name' => 'required'];
+    protected $defaultValidations = [
+        'name' => 'required'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -56,6 +58,8 @@ class ApiController extends Controller
      */
     public function show(Api $api)
     {
+        $api->load('routes');
+
         return $this->getView('view', compact('api'));
     }
 
@@ -106,7 +110,8 @@ class ApiController extends Controller
      * @param  array $args
      * @return \Illuminate\Http\Response
      */
-    private function getView($view, $args) {
+    private function getView($view, $args) 
+    {
         return view('admin.api.' . $view, $args);
     }
 }
