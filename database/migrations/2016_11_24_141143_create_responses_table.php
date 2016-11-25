@@ -21,7 +21,7 @@ class CreateResponsesTable extends Migration
             $table->integer('response_time');
             $table->integer('response_code');
             $table->string('payload_type');
-            $table->string('payload');
+            $table->text('payload');
             $table->boolean('is_active');
             $table->timestamps();
         });
