@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 use App\Models\Api;
 use App\Models\Route;
+use App\Models\Response;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -64,6 +65,8 @@ class RouteServiceProvider extends ServiceProvider
         RouteFacade::model('api', Api::class);
 
         RouteFacade::model('route', Route::class);
+
+        RouteFacade::model('response', Response::class);
     }
 
     /**

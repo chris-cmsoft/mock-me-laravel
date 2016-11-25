@@ -40,6 +40,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
             Route::put('/{route}/update', "RouteController@update");
             Route::delete('/{route}', "RouteController@destroy")->name('route-delete');
 
+            Route::group(['prefix' => '{route}/response'], function() {
+
+                Route::get('/create', "ResponseController@create")->name('response-create');
+                Route::post('/create', "ResponseController@store");
+                Route::get('/{response}', "ResponseController@show")->name('response-view');
+                Route::get('/{response}/update', "ResponseController@edit")->name('response-update');
+                Route::put('/{response}/update', "ResponseController@update");
+                Route::delete('/{response}', "ResponseController@destroy")->name('response-delete');
+
+            });
+
         });
 
     });
