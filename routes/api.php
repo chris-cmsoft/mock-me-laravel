@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::get('/mockme/{api}/{url}', function (Request $request) {
+    dd('asd');
+    // return $request->user();
+});
+
+Route::pattern('url', '[a-zA-Z0-9-/]+');
