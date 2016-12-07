@@ -19,6 +19,10 @@ class CreateRoutesTable extends Migration
             $table->foreign('api_id')->references('id')->on('apis');
             $table->string('name');
             $table->string('url');
+            $table->string('request_method');
+            $table->integer('response_time');
+            $table->integer('response_code');
+            $table->text('payload');
             $table->timestamps();
         });
     }

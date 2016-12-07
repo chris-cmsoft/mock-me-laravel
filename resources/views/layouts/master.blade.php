@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li><a href="{{ route('api-index') }}">Api's</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -68,7 +68,7 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="col-md-12">
+            <div class="col-md-12" style="padding-top: 18px;padding-bottom: 18px;background-color: #FFF;box-shadow: 1px 1px 8px -1px rgba(0,0,0,0.5);border-radius: 4px;">
                 @yield('content')
             </div>
         </div>
@@ -76,8 +76,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/jquery.min.js') }}" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     <script type="text/javascript">
         $('a[data-purpose="delete"]').click(function(e) {
@@ -86,6 +86,10 @@
             if(r) {
                 $(this).closest('form').submit();
             }
+        });
+        $("textarea").keyup(function(e) {
+            $(this).height(30);
+            $(this).height(this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth")));
         });
     </script>
 </body>

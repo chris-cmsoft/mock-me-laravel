@@ -14,7 +14,11 @@ class RouteController extends Controller
 
     protected $defaultValidations = [
         'name' => 'required',
-        'url' => 'required'
+        'url' => 'required',
+        'request_method' => 'required|in:get,post,put,patch,delete,options',
+        'response_time' => 'required|min:0|max:240',
+        'response_code' => 'required',
+        'payload' => 'json',
     ];
 
     /**
@@ -40,7 +44,7 @@ class RouteController extends Controller
 
         $route = $api->routes()->create($request->all());
 
-        return redirect()->route('route-view', compact('api', 'route'));
+        return redirect()->route('api-view', compact('api'));
     }
 
     /**
@@ -86,7 +90,7 @@ class RouteController extends Controller
 
         $route->update($request->all());
 
-        return redirect()->route('route-view', compact('api' ,'route'));
+        return redirect()->route('api-view', compact('api'));
     }
 
     /**

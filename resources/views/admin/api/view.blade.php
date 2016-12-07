@@ -29,6 +29,9 @@
             <tr>
                 <th>Name</th>
                 <th>Url</th>
+                <th>Method</th>
+                <th>Code</th>
+                <th>Time</th>
                 <th>
                     <a href="{{ route('route-create', ['api' => $api]) }}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-plus"></i></a>
                 </th>
@@ -39,6 +42,9 @@
                 <tr>
                     <td>{{ $route->name }}</td>
                     <td>{{ $route->url }}</td>
+                    <td>{{ $route->request_method }}</td>
+                    <td>{{ $route->response_code }}</td>
+                    <td>{{ $route->response_time }}</td>
                     <td>
                         <form method="POST" action="{{ route('route-delete', ['api' => $api, 'route' => $route]) }}">
                             {{ csrf_field() }}
@@ -51,7 +57,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3">No Results Found</td>
+                    <td colspan="6">No Results Found</td>
                 </tr>
             @endforelse
         </tbody>

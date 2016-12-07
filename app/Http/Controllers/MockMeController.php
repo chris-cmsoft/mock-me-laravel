@@ -17,12 +17,11 @@ class MockMeController extends Controller
                     ->orWhere('url', '/'. $url);
 
             })
-            ->first();
+            ->where('request_method', strtolower($request->method()))
+            ->firstOrFail();
 
-        $response = $route->responses()->where('request_method', strtolower($request->method()))->where('is_active', true)->first();
+        sleep($route->response_time);
 
-        sleep($response->response_time);
-
-        return response()->json(json_decode($response->payload), $response->response_code);
+        return response()->json(json_decode($route->payload), $route->response_code);
     }
 }
