@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/mockme/{api}/{url}', "MockMeController@mockme");
+Route::any('/mockme/{api}/{url}', "MockMeController@mockme");
 
 Route::pattern('url', '[a-zA-Z0-9-/]+');
 
