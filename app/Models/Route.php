@@ -4,21 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Api;
-use App\Models\Response;
 
 class Route extends Model
 {
     protected $fillable = [
         'name',
-        'url'
+        'url',
+        'request_method',
+        'response_time',
+        'response_code',
+        'payload_type',
+        'payload',
+        'is_active'
     ];
 
-    public function api() 
+    public function api()
     {
         return $this->belongsTo(Api::class);
-    }
-
-    public function responses() {
-        return $this->hasMany(Response::class);
     }
 }
