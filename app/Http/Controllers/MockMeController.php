@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserApi;
 use Illuminate\Http\Request;
 
 use App\Models\Api;
 
 class MockMeController extends Controller
 {
-    public function mockme(Request $request, Api $api, $url) {
-        $route = $api->routes()
+    public function mockme(Request $request, $api_key, $url) {
+        $userApi = UserApi::where('api_key', $api_key)->first();
+        $route = $userApi->api->routes()
             ->where(function($query) use ($url) {
                 $query
                     ->where('url', $url)

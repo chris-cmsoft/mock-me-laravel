@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\UserApi;
+use App\Models\UserApiAccess;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -22,6 +26,7 @@ class ApiController extends Controller
     public function index()
     {
         $apis = auth()->user()->apis;
+
         return view('index', compact('apis'));
     } 
 
@@ -46,7 +51,17 @@ class ApiController extends Controller
     {
         $this->validate($request, $this->defaultValidations);
 
-        $api = auth()->user()->apis()->create($request->all());
+        $api = Api::create($request->all());
+
+        $userApi = UserApi::create([
+            'api_id' => $api->id,
+            'user_id' => auth()->user()->id,
+            'api_key' => $this->generateNewKey(),
+            'invite_sent_at' => Carbon::now(),
+            'accepted_invite' => true,
+        ]);
+
+        $userApi->grantAllAccess();
 
         return redirect()->route('api-view', ['api' => $api]);
     }
@@ -59,7 +74,7 @@ class ApiController extends Controller
      */
     public function show(Api $api)
     {
-        $api->load('routes');
+        $api->load(['routes']);
 
         return view('view', compact('api'));
     }
@@ -89,6 +104,45 @@ class ApiController extends Controller
         $api->update($request->all());
 
         return redirect()->route('api-view', compact('api'));
+    }
+
+    public function findInvitee(Api $api)
+    {
+        $users = User::all();
+
+        $accesses = UserApiAccess::getAllAccesses();
+
+        return view('invite', compact('api', 'users', 'accesses'));
+    }
+
+    public function invite(Request $request, Api $api)
+    {
+        if($request->has('invite')) {
+            foreach ($request->input('invite') as $user_id => $details) {
+                $user = User::find($user_id);
+                $detail = collect($details);
+                if($detail->has('selected') && $detail->get('selected') == 1) {
+                    $user = User::find($user_id);
+                    $userApi = $user->userApis()->where('api_id', $api->id)->first();
+                    if(!$userApi) {
+                        $userApi = $user->userApis()->create([
+                            'api_id' => $api->id,
+                            'api_key' => $this->generateNewKey(),
+                            'invite_sent_at' => Carbon::now(),
+                            'accepted_invite' => false
+                        ]);
+                        $accessRecord = $userApi->createAccessRecord();
+                    } else {
+                        $accessRecord = $userApi->access;
+                    }
+
+                    if($detail->has('access')) {
+                        $accessRecord->update($detail->get('access'));
+                    }
+                }
+            }
+        }
+        return redirect()->route('api-index');
     }
 
     /**

@@ -57,8 +57,6 @@ class RouteController extends Controller
     {
         $this->validateRoute($api, $route);
 
-        $route->load('responses');
-
         return view('view', compact('route'));
     }
 

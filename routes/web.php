@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::any('/mockme/{api}/{url}', "MockMeController@mockme")->middleware('cors');
+Route::any('/mockme/{api_key}/{url}', "MockMeController@mockme")->middleware('cors');
 
 Route::pattern('url', '[a-zA-Z0-9-/]+');
 
@@ -33,6 +33,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth', 'namespace' => 'Admin
         Route::get('/{api}', 'ApiController@show')->name('api-view');
         Route::get('/{api}/update', 'ApiController@edit')->name('api-update');
         Route::put('/{api}/update', 'ApiController@update');
+        Route::get('/{api}/invite', 'ApiController@findInvitee')->name('api-invite');
+        Route::post('/{api}/invite', 'ApiController@invite');
         Route::delete('/{api}', 'ApiController@destroy')->name('api-delete');
 
         Route::group(['prefix' => '{api}/route'], function() {

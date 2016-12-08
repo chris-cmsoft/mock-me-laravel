@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <td>Key</td>
-                <td>{{ $api->key }}</td>
+                <td>{{ $api->apiUser->api_key }}</td>
             </tr>
         </tbody>
     </table>

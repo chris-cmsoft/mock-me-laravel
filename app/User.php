@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Models\Api;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\Api;
+use App\Models\UserApi;
 
 class User extends Authenticatable
 {
@@ -28,8 +29,13 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function apis() 
+    public function userApis()
     {
-        return $this->hasMany(Api::class);
+        return $this->hasMany(UserApi::class);
+    }
+
+    public function apis()
+    {
+        return $this->belongsToMany(Api::class, 'user_apis');
     }
 }

@@ -18,7 +18,7 @@
             @forelse($apis as $api)
                 <tr>
                     <td>{{ $api->name }}</td>
-                    <td>{{ $api->key }}</td>
+                    <td>{{ $api->apiUser->api_key }}</td>
                     <td>
                         <form action="{{ route('api-delete', ['api' => $api]) }}" method="POST">
                             {{ method_field('DELETE') }}
@@ -26,6 +26,7 @@
                             <a href="{{ route('api-view', ['api' => $api]) }}" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-eye-open"></i></a>
                             <a href="{{ route('api-update', ['api' => $api]) }}" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-pencil"></i></a>
                             <a data-purpose="delete" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-trash"></i></a>
+                            <a href="{{ route('api-invite', ['api' => $api]) }}" class="btn btn-xs btn-default"><i class="glyphicon glyphicon-plus"></i></a>
                         </form>
                     </td>
                 </tr>

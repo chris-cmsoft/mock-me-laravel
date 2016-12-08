@@ -20,4 +20,22 @@ class Controller extends BaseController
     private function registerViewPath() {
         \View::addLocation(resource_path().'/views/' . ltrim($this->viewPath, '/') );
     }
+
+    protected function generateNewKey() {
+        // Get the current milliseconds
+        $currentTime = microtime( );
+
+        // Get a unique ID
+        $uniqueId = uniqid( );
+
+        // Concatenate these to make a single encodable string
+        $decodedKey = $currentTime . $uniqueId;
+
+        // encode with sha1 encoding
+        $encodedKey = sha1( $decodedKey );
+
+        // uppercase for consistency and estetically pleasing keys
+        $key = strtoupper( $encodedKey );
+        return $key;
+    }
 }
