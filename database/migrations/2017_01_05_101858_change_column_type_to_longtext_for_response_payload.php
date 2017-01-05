@@ -19,7 +19,7 @@ class ChangeColumnTypeToLongtextForResponsePayload extends Migration
 
         Schema::table('routes', function (Blueprint $table) {
             foreach(DB::table('routes')->get() as $route) {
-                DB::table('routes')->where('id', $route->id)->update('payload_swap', $route->payload);
+                DB::table('routes')->where('id', $route->id)->update(['payload_swap' => $route->payload]);
             }
         });
 
@@ -33,7 +33,7 @@ class ChangeColumnTypeToLongtextForResponsePayload extends Migration
 
         Schema::table('routes', function (Blueprint $table) {
             foreach(DB::table('routes')->get() as $route) {
-                DB::table('routes')->where('id', $route->id)->update('payload', $route->payload_swap);
+                DB::table('routes')->where('id', $route->id)->update(['payload' => $route->payload_swap]);
             }
         });
 
