@@ -15,11 +15,10 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if($request->isMethod('OPTIONS')) {
-            return response(null, 200)
-                ->header('Access-Control-Allow-Origin', '*')
-                ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
-        }
-        return $next($request);
+        $response = $next($request);
+        return $response
+            ->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+            ->header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     }
 }
