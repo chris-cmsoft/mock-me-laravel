@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::any('/mockme/{api_key}/{url}', "MockMeController@mockme")->middleware('cors');
+Route::any('/mockme/{api_key}/{url}', "MockMeController@mockme");
 
 Route::pattern('url', '[a-zA-Z0-9-/]+');
 
