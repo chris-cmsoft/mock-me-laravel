@@ -15,10 +15,13 @@ class CorsMiddleware
      */
     public function handle($request, Closure $next)
     {
+        // Get all extra Request headers
+        $requestHeaders = $request->header('Access-Control-Request-Headers');
         $response = $next($request);
         return $response
             ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', '*')
-            ->header('Access-Control-Allow-Headers', '*');
+            // Allow any extra Request Headers
+            ->header('Access-Control-Allow-Headers', $requestHeaders);
     }
 }
