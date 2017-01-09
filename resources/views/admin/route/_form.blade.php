@@ -49,7 +49,7 @@
 
 <div class="form-group {{ $errors->has('payload') ? 'has-error' : '' }}">
     <label class="control-label">Payload</label>
-    <textarea name="payload" class="form-control">{{ old('payload', $route->payload) }}</textarea>
+    <textarea rows="25" name="payload" class="form-control">{{ old('payload', $route->payload) }}</textarea>
     @foreach($errors->get('payload') as $message)
         <span class="help-block">{{ $message }}</span>
     @endforeach

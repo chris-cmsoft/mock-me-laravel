@@ -87,10 +87,6 @@
                 $(this).closest('form').submit();
             }
         });
-        $("textarea").keyup(function(e) {
-            $(this).height(30);
-            $(this).height(this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth")));
-        });
     </script>
 </body>
 </html>
