@@ -1,15 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Models\Api;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App\Models\UserApi;
+use App\Models\Traits\HandlesTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HandlesTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -20,13 +19,17 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $dates = [
+        'api_token_expires',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'api_token', 'api_token_expires',
     ];
 
     public function userApis()
