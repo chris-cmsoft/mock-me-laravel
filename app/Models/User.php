@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Traits\HandlesTokens;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -40,5 +41,15 @@ class User extends Authenticatable
     public function apis()
     {
         return $this->belongsToMany(Api::class, 'user_apis');
+    }
+
+    public function checkPassword($password)
+    {
+        return Hash::check($password, $this->getAuthPassword());
+    }
+
+    static function findByEmail($email)
+    {
+        return self::where('email', $email)->first();
     }
 }

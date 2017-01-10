@@ -1,5 +1,6 @@
 <?php
 
+
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -8,6 +9,8 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     protected $baseUrl = 'http://localhost';
+
+    protected $migrated = false;
 
     /**
      * Creates the application.
@@ -21,5 +24,16 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+        \Illuminate\Support\Facades\Artisan::call('migrate:reset');
+    }
+
+    public function runMigrations()
+    {
+        \Illuminate\Support\Facades\Artisan::call('migrate');
     }
 }

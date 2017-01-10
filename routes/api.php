@@ -21,6 +21,12 @@ Route::group(['namespace' => 'Api'], function() {
     Route::post('/register', 'AuthController@register');
     Route::post('/logout', 'AuthController@logout')->middleware('auth.api');
 
+    Route::group(['middleware' => 'auth.api'], function() {
+
+        Route::get('/apis', 'ApiController@index');
+
+    });
+
 });
 
 Route::get('/mockme/{api}/{url?}', function (Request $request) {

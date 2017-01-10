@@ -22,15 +22,13 @@ class AuthController extends Controller
             return response()->json($validator->errors(), HTTP_CODE_VALIDATION_ERROR);
         }
 
-        $user = User::where('email', $request->input('email'))->first();
+        $user = User::findByEmail($request->input('email'));
 
-        if(!$user || ($user && !Hash::check($request->input('password'), $user->password))) {
+        if(!$user || ($user && !$user->checkPassword($request->input('password')))) {
             return response()->json(['email' => ['Username & Password does not match out records']], HTTP_CODE_VALIDATION_ERROR);
         }
 
         $user->generateApiToken();
-
-
 
         return response()->json(['token' => $user->getApiToken()]);
     }

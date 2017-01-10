@@ -33,6 +33,9 @@ trait HandlesTokens
 
     public function hasValidToken()
     {
+        if(!$this->api_token) {
+            return false;
+        }
         return $this->api_token_expires > Carbon::now();
     }
 
