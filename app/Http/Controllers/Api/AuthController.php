@@ -28,7 +28,9 @@ class AuthController extends Controller
             return response()->json(['email' => ['Username & Password does not match out records']], HTTP_CODE_VALIDATION_ERROR);
         }
 
-        $user->generateApiToken()->save();
+        $user->generateApiToken();
+
+
 
         return response()->json(['token' => $user->getApiToken()]);
     }

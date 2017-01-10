@@ -14,11 +14,15 @@ trait HandlesTokens
 
     public function generateApiToken()
     {
+        $token = $this->getNewApiToken();
+        $tokenExpire = $this->getExpireTime();
         self::where('id', $this->id)
             ->update([
-                'api_token_expires' => $this->getExpireTime(),
-                'api_token' => $this->getNewApiToken(),
+                'api_token_expires' => $tokenExpire,
+                'api_token' => $token,
             ]);
+        $this->api_token = $token;
+        $this->api_token_expires = $tokenExpire;
         return $this;
     }
 
@@ -39,6 +43,8 @@ trait HandlesTokens
                 'api_token_expires' => null,
                 'api_token' => null,
             ]);
+        $this->api_token = null;
+        $this->api_token_expires = null;
         return $this;
     }
 
@@ -49,6 +55,8 @@ trait HandlesTokens
             ->update([
                 'api_token_expires' => $newExpiration,
             ]);
+        $this->api_token_expires = $newExpiration;
+        return $this;
     }
 
     protected function getNewApiToken()
